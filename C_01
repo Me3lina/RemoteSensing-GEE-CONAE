@@ -1,0 +1,22 @@
+var punto1 = ee.Geometry.Point(-71.35183, -41.15555);
+var punto2 = ee.Geometry.Point(-71.65059, -40.76598);
+
+var distancia = punto1.distance({'right': punto2, 'maxError': 1});
+
+print('distancia en metros entre punto 1 y punto 2', distancia);
+
+Map.addLayer(punto1,{'color': 'red'}, 'Punto 1');
+Map.addLayer(punto2,{'color': 'blue'}, 'Punto 2');
+
+Map.setCenter(-71.5321432522829,-40.96444305763336, 9);
+
+Map.addLayer(SRTM, {min: 0, max: 2000}, 'Imagen SRTM');
+
+Map.setCenter(-71.53,-40.96, 8);
+
+Map.addLayer (MODIS, {min: 0, max: 6000}, 'Imagen MODIS');
+
+var Landsat=ee.ImageCollection("LANDSAT/LC09/C02/T1_L2").filterDate('2022-02-01','2022-03-01');
+
+Map.addLayer(Landsat, {min: 0, max: 20000}, 'Imagen Landsat')
+
