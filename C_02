@@ -1,1 +1,25 @@
+Map.centerObject(aoi)
 
+var image = ee.Image(ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')
+.filterDate("2021-01-01","2021-12-01")
+.filterBounds(aoi)
+.sort('CLOUD_COVER').first());
+
+var bands = ['SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7'];
+
+/* var vegetacionsana = {  bands: ['SR_B5', 'SR_B6',  'SR_B2'], 
+min: 0,  
+max: 19000,  
+gamma: [0.8, 0.8, 1] }
+
+Map.addLayer(image, vegetacionsana, 'Falso Color');
+*/ 
+
+var colorreal = {bands: ['SR_B4','SR_B3','SR_B2'], min:0,max: 17000};  
+Map.addLayer(image, colorreal,'Color Real');
+
+var vegetacionsana = {bands: ['SR_B5', 'SR_B6',  'SR_B4'],   min: 0,  max: 19000};
+Map.addLayer(image, vegetacionsana, 'Vegetación Sana');
+
+var infrarrojo = {bands: ['SR_B5', 'SR_B3',  'SR_B2'],   min: 0,  max: 19000};
+Map.addLayer(image, infrarrojo, 'Infrarrojo Color')
